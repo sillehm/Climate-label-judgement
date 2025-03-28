@@ -517,7 +517,7 @@ function sendToOSF() {
   `;
   debrief.style.display = "block";
 
-  fetch("https://replit.com/@202006969/osf-uploader", {
+  fetch("https://osf-uploader.onrender.com", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ filename, content: csvContent })
