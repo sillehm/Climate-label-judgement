@@ -219,8 +219,31 @@
     <label for="age">Alder</label>
     <input type="number" id="age" min="10" max="120" required>
 
-    <label for="occupation">Beskæftigelse</label>
-    <input type="text" id="occupation" required>
+    <label for="occupation">Beskæftigelse:</label>
+    <select id="occupation" name="occupation" required>
+      <option value="">Vælg...</option>
+      <option value="Sygemeldt">Sygemeldt</option>
+      <option value="Studerende">Studerende</option>
+      <option value="Selvstændig">Selvstændig</option>
+      <option value="Pensioneret">Pensioneret</option>
+      <option value="Orlov/barsel">Orlov/barsel</option>
+      <option value="Lønmodtager">Lønmodtager</option>
+      <option value="Ledig">Ledig</option>
+      <option value="Efterløn">Efterløn</option>
+      <option value="Andet">Andet</option>
+    </select>
+
+    <label for="income">Månedlig indkomst (DKK):</label>
+    <select id="income" name="income" required>
+      <option value="">Vælg...</option>
+      <option value="Under 10.000">Under 10.000</option>
+      <option value="10–25.000">10–25.000</option>
+      <option value="25–40.000">25–40.000</option>
+      <option value="40–55.000">40–55.000</option>
+      <option value="55–70.000">55–70.000</option>
+      <option value="Mere end 70.000">Mere end 70.000</option>
+      <option value="Ønsker ikke at oplyse">Ønsker ikke at oplyse</option>
+    </select>
 
     <button id="start-button" type="submit">Start Eksperiment</button>
   </form>
@@ -230,8 +253,9 @@
 <div id="consent-screen" class="screen">
   <h2>Samtykkeerklæring</h2>
   <p>Du deltager i dette online studie, som er udarbejdet af Sille Hasselbalch Markussen i forbindelse med sit speciale i Cognitive Science. Studiet varer ca. XX minutter, og dine svar behandles anonymt og fortroligt i overensstemmelse med databeskyttelsesforordningen.
-
+    <br>
     Hvis du har spørgsmål om studiet eller behandlingen af dine data, kan du kontakte Sille Hasselbalch Markussen, 202006969@post.au.dk.
+    <br>
     Din deltagelse er helt frivillig, og du kan til enhver tid trække dit samtykke tilbage uden konsekvenser.</p>
   <button class="next-btn" onclick="nextStep()">Næste</button>
 </div>
@@ -239,9 +263,9 @@
 <div id="background-screen" class="screen">
   <h2>Velkommen til undersøgelsen!</h2>
   <p>I dette eksperiment vil du blive præsenteret for indkøbskurve med fem dagligvarer. Disse varer vil være mærket med et klimamærke, der viser den gennemsnitlige klimabelastning for de forskellige fødevarer. 
-    
+    <br>
     Mærket går fra A (lav CO₂-udledning) til E (høj CO₂-udledning), baseret på hvor mange kg CO₂ der udledes pr. kg af varen.
-    
+    <br>
     Klik på "Næste" for at komme til instruktionerne. </p>
   <button class="next-btn" onclick="nextStep()">Næste</button>
 </div>
@@ -250,13 +274,13 @@
   <h2>Instruktioner</h2>
   <p>Din opgave er at vurdere, hvor stor en klimapåvirkning indholdet af kurven har i gennemsnit. Hver kurv består af 5 varer vist på skærmen.
     Du vil blive bedt om at angive kurvens gennemsnitlige klimapåvirkning ved at vælge det klimamærke der passer til din vurdering. 
-    
+    <br>
     Når du har valgt den knap (A–E) du mener passer bedst, skal du klikke på "Næste" for at bekræfte dit valg.
-    
+    <br>
     Efter hver vurdering vil du blive bedt om at vurdere, hvor sikker du er på dit svar, på en skala fra 0 = Usikker → 7 = Sikker. 
-    
+    <br>
     Du vil først blive ført igennem 3 øvelsesrunder. Derefter starter eksperimentet. 
-    
+    <br>
     Klik på "Næste", når du er klar til at starte. </p>
   <button class="next-btn" onclick="nextStep()">Næste</button>
 </div>
@@ -463,6 +487,7 @@
     gender: document.getElementById("gender").value,
     age: document.getElementById("age").value,
     occupation: document.getElementById("occupation").value,
+    income: document.getElementById("income").value,
     trialType,
     scaleCondition,
     scaleImagePath,
