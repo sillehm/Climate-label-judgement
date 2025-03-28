@@ -522,7 +522,11 @@
   }
 }
 
-function sendToOSF() {
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function sendToOSF() {
   if (!trialDataLog.length) return;
 
   const headers = Object.keys(trialDataLog[0]);
@@ -542,27 +546,43 @@ function sendToOSF() {
   `;
   debrief.style.display = "block";
 
-  fetch("https://osf-uploader.onrender.com/upload", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ filename, content: csvContent })
-  })
-  .then(res => {
-    if (!res.ok) throw new Error("Upload failed");
-    debrief.innerHTML = `
-      <h2>Tak for din deltagelse!</h2>
-      <p>Dine data er nu gemt.</p>
-      <p>Du må gerne lukke fanen.</p>
-    `;
-  })
-  .catch(err => {
+  const maxRetries = 3;
+  let success = false;
+
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      const res = await fetch("https://osf-uploader.onrender.com/upload", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ filename, content: csvContent })
+      });
+
+      if (!res.ok) throw new Error("Upload failed");
+
+      debrief.innerHTML = `
+        <h2>Tak for din deltagelse!</h2>
+        <p>Dine data er nu gemt.</p>
+        <p>Du må gerne lukke fanen.</p>
+      `;
+      success = true;
+      break;
+    } catch (err) {
+      console.warn(`⏳ Upload forsøg #${attempt} mislykkedes`, err);
+      if (attempt < maxRetries) {
+        await delay(5000); // wait 5 seconds before retrying
+      }
+    }
+  }
+
+  if (!success) {
     debrief.innerHTML = `
       <h2>Fejl</h2>
-      <p>Data kunne ikke gemmes. Kontakt forsøgslederen.</p>
+      <p>Data kunne ikke gemmes efter gentagne forsøg.<br>
+      Kontakt forsøgslederen.</p>
     `;
-    console.error(err);
-  });
+  }
 }
+
 
 
   function startNextBlock() {
