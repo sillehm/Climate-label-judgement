@@ -53,7 +53,7 @@
       justify-content: space-between;
       max-width: 1200px;
       margin: 40px auto;
-      gap: 40px;
+      gap: 20px;
       align-items: flex-start;
     }
 
@@ -65,7 +65,7 @@
     }
 
     #right-column {
-      flex: 0.55;
+      flex: 0.40;
       transform: scale(1.1);
       transform-origin: top right;
     }
@@ -486,7 +486,7 @@
         if (!scaleImg) {
           scaleImg = document.createElement("img");
           scaleImg.id = "scale-image";
-          scaleImg.style.marginTop = "100px";
+          scaleImg.style.marginTop = "30px";
           scaleImg.style.maxWidth = "100%";
           scaleImg.style.height = "auto";
           scaleImg.style.display = "none";
@@ -566,7 +566,7 @@
         document.getElementById("midway-screen").style.display = "block";
     
         if (scaleCondition !== "labels") {
-          midwayText.textContent = "Du er halvvejs. I resten af forsøget får du vist de intervaller af CO₂-udledning hvert mærke repræsenterer til hjælp i dine vurderinger.";
+          midwayText.textContent = "Du er halvvejs. I resten af forsøget vil du få vist de CO₂-intervaller, som hvert mærke repræsenterer, for at hjælpe dig med dine vurderinger.";
           midwayScale.src = scaleImagePath;
           midwayScale.style.display = "block";
         } else {
