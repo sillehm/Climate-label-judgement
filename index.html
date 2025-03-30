@@ -105,43 +105,41 @@
     .likert-options {
       display: flex;
       justify-content: space-between;
-      position: relative;
       margin: 60px 0 40px;
     }
     
     .likert-options label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
       flex: 1;
-      text-align: center;
       cursor: pointer;
       position: relative;
+      font-size: 14px;
     }
     
     .likert-options input[type="radio"] {
       display: none;
     }
     
-    .likert-options span {
-      display: inline-block;
-      margin-top: 10px;
-      font-size: 14px;
-    }
-    
-    .likert-options label::before {
-      content: "";
-      position: absolute;
-      top: -20px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 14px;
-      height: 14px;
+    .likert-options .dot {
+      width: 18px;
+      height: 18px;
       border: 2px solid #666;
       border-radius: 50%;
       background: white;
-      transition: background 0.2s;
+      transition: background 0.2s, border-color 0.2s;
     }
     
-    .likert-options input[type="radio"]:checked + span::before {
+    .likert-options label:hover .dot {
+      background: #eee;
+      border-color: #333;
+    }
+    
+    .likert-options input[type="radio"]:checked + .dot {
       background: #333;
+      border-color: #333;
     }
 
 
@@ -334,13 +332,13 @@
   <p>Angiv dit svar ved at klikke på skalaen.</p>
   <div class="likert-scale">
   <div class="likert-options">
-    <label><input type="radio" name="certainty" value="1"><span>Usikker</span></label>
-    <label><input type="radio" name="certainty" value="2"><span>2</span></label>
-    <label><input type="radio" name="certainty" value="3"><span>3</span></label>
-    <label><input type="radio" name="certainty" value="4"><span>4</span></label>
-    <label><input type="radio" name="certainty" value="5"><span>5</span></label>
-    <label><input type="radio" name="certainty" value="6"><span>6</span></label>
-    <label><input type="radio" name="certainty" value="7"><span>Sikker</span></label>
+    <label><input type="radio" name="certainty" value="1"><span class="dot"></span><div>Usikker</div></label>
+    <label><input type="radio" name="certainty" value="2"><span class="dot"></span><div>2</div></label>
+    <label><input type="radio" name="certainty" value="3"><span class="dot"></span><div>3</div></label>
+    <label><input type="radio" name="certainty" value="4"><span class="dot"></span><div>4</div></label>
+    <label><input type="radio" name="certainty" value="5"><span class="dot"></span><div>5</div></label>
+    <label><input type="radio" name="certainty" value="6"><span class="dot"></span><div>6</div></label>
+    <label><input type="radio" name="certainty" value="7"><span class="dot"></span><div>Sikker</div></label>
   </div>
 </div>
   <button onclick="submitCertainty()">Næste</button>
@@ -380,7 +378,7 @@
   let currentScreen = 0;
   let trialIndex = 0;
   let trialType = 'test';
-  const trialCounts = { test: 3, baseline: 20, experimental: 20 };
+  const trialCounts = { test: 3, baseline: 5, experimental: 5 };
   let scaleCondition = null;
   let scaleImagePath = null;
   let selectedAnswer = null;
