@@ -586,7 +586,7 @@
         document.getElementById("midway-screen").style.display = "block";
     
         if (scaleCondition !== "labels") {
-          midwayText.textContent = "Du er halvvejs. I resten af forsøget vil du få vist de CO₂-intervaller, som hvert mærke repræsenterer, <br>for at hjælpe dig med dine vurderinger.";
+          midwayText.innerHTML = "Du er halvvejs. I resten af forsøget vil du få vist de CO₂-intervaller, som hvert mærke repræsenterer,<br>for at hjælpe dig med dine vurderinger.";
           midwayScale.src = scaleImagePath;
           midwayScale.style.display = "block";
         } else {
