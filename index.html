@@ -33,19 +33,25 @@
     
     #demographics-form label {
       display: block;
-      margin-bottom: 2px; /* tighter gap between label and field */
+      margin-bottom: 4px; /* small gap between label and input */
       font-weight: bold;
     }
     
     #demographics-form input,
-    #demographics-form select,
+    #demographics-form select {
       display: block;
       width: 100%;
-      margin-bottom: 10px;
       padding: 10px;
       font-size: 16px;
+      margin-bottom: 20px; /* space below each field */
+      box-sizing: border-box;
     }
+    
     #demographics-form button {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
       margin-top: 20px;
     }
 
