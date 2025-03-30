@@ -400,7 +400,9 @@
   let trialStartTime = null;
   let trialDataLog = [];
   let currentTrialItems = [];
-
+  
+  const preloadedImages = [];
+  
   function nextStep() {
     document.getElementById(screens[currentScreen]).style.display = "none";
     currentScreen++;
@@ -419,6 +421,11 @@
         const random = lines[Math.floor(Math.random() * lines.length)].split(',');
         scaleCondition = random[0];
         scaleImagePath = random[1];
+
+        const img = new Image();
+        img.src = scaleImagePath;
+        preloadedImages.push(img);
+    });
       });
   }
 
@@ -560,7 +567,7 @@
         document.getElementById("midway-screen").style.display = "block";
     
         if (scaleCondition !== "labels") {
-          midwayText.textContent = "Du er halvvejs. I resten af forsøget får du vist en skala til hjælp i dine vurderinger.";
+          midwayText.textContent = "Du er halvvejs. I resten af forsøget får du vist de intervaller af CO₂-udledning hvert mærke repræsenterer til hjælp i dine vurderinger.";
           midwayScale.src = scaleImagePath;
           midwayScale.style.display = "block";
         } else {
@@ -643,9 +650,28 @@ async function sendToOSF() {
     document.getElementById("midway-screen").style.display = "none";
     runTrial();
   }
+  function preloadImages() {
+    fetch("items.csv")
+      .then(response => response.text())
+      .then(data => {
+        const lines = data.trim().split('\n').slice(1);
+        const items = lines.map(line => {
+          const parts = line.split(',');
+          return [parts[1], parts[6]]; // itemImage, labelImage
+        });
+  
+        const uniqueUrls = new Set(items.flat()); // remove duplicates
+        uniqueUrls.forEach(url => {
+          const img = new Image();
+          img.src = url;
+          preloadedImages.push(img);
+        });
+      });
+  }
 
   window.onload = () => {
     loadScaleCondition();
+    preloadImages();
     document.getElementById(screens[currentScreen]).style.display = "block";
   };
 </script>
