@@ -299,6 +299,14 @@
   <button class="next-btn" onclick="nextStep()">Næste</button>
 </div>
 
+<div id="midway-screen" class="screen">
+  <h2>Du er halvvejs!</h2>
+  <p id="midway-text"></p>
+  <img id="midway-scale-image" style="max-width: 100%; display: none; margin-top: 20px;">
+  <button class="next-btn" onclick="startNextBlock()">Næste</button>
+</div>
+
+  
 <div id="experiment-area">
   <div id="left-column">
     <div id="question">
@@ -530,9 +538,23 @@
       trialIndex = 0;
       document.getElementById("get-ready-screen").style.display = "block";
     } else if (trialType === 'baseline') {
-      trialType = 'experimental';
-      trialIndex = 0;
-      runTrial();
+        trialType = 'experimental';
+        trialIndex = 0;
+      
+        const midwayText = document.getElementById("midway-text");
+        const midwayScale = document.getElementById("midway-scale-image");
+        document.getElementById("certainty-screen").style.display = "none";
+        document.getElementById("midway-screen").style.display = "block";
+      
+        if (scaleCondition !== "labels") {
+          midwayText.textContent = "Du er halvvejs. I resten af forsøget får du vist en skala til hjælp i dine vurderinger.";
+          midwayScale.src = scaleImagePath;
+          midwayScale.style.display = "block";
+        } else {
+          midwayText.textContent = "Du er halvvejs. Fortsæt med dine vurderinger som før.";
+          midwayScale.style.display = "none";
+        }
+      }
     } else {
       console.log(trialDataLog);
       sendToOSF();  // <- download triggered here
