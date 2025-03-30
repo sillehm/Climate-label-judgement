@@ -65,7 +65,7 @@
     }
 
     #right-column {
-      flex: 0.65;
+      flex: 0.55;
       transform: scale(1.1);
       transform-origin: top right;
     }
@@ -106,7 +106,6 @@
     }
 
     #certainty-screen {
-      display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
@@ -502,7 +501,7 @@
   function endTrial() {
     if (!selectedAnswer) return;
     document.getElementById("experiment-area").style.display = "none";
-    document.getElementById("certainty-screen").style.display = "block";
+    document.getElementById("certainty-screen").style.display = "flex";
     const scaleImg = document.getElementById("scale-image");
     if (scaleImg) scaleImg.style.display = 'none';
     document.querySelectorAll('input[name="certainty"]').forEach(r => r.checked = false);
