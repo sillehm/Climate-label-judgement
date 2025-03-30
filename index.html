@@ -105,6 +105,7 @@
 
     #certainty-screen {
       flex-direction: column;
+      margin-top: 200px;
       align-items: center;
       justify-content: center;
       min-height: 100vh; /* fill screen height */
@@ -218,6 +219,7 @@
 
     #get-ready-screen,
     #midway-screen {
+      margin-top: 200px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -368,7 +370,7 @@
   <button class="next-btn" onclick="submitCertainty()">Næste</button>
 </div>
 
-<div id="get-ready-screen" class="screen">
+<div id="get-ready-screen" class="screen" style="display: none;">
   <h2>Nu starter undersøgelsen</h2>
   <p>Du vil nu se flere indkøbskurve og vurdere deres klimaaftryk som før.</p>
   <button class="next-btn" onclick="startNextBlock()">Næste</button>
