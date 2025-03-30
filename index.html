@@ -531,21 +531,21 @@
   document.getElementById("certainty-screen").style.display = "none";
   trialIndex++;
   if (trialIndex < trialCounts[trialType]) {
-    runTrial();
-  } else {
-    if (trialType === 'test') {
-      trialType = 'baseline';
-      trialIndex = 0;
-      document.getElementById("get-ready-screen").style.display = "block";
-    } else if (trialType === 'baseline') {
+      runTrial();
+    } else {
+      if (trialType === 'test') {
+        trialType = 'baseline';
+        trialIndex = 0;
+        document.getElementById("get-ready-screen").style.display = "block";
+      } else if (trialType === 'baseline') {
         trialType = 'experimental';
         trialIndex = 0;
-      
+    
         const midwayText = document.getElementById("midway-text");
         const midwayScale = document.getElementById("midway-scale-image");
         document.getElementById("certainty-screen").style.display = "none";
         document.getElementById("midway-screen").style.display = "block";
-      
+    
         if (scaleCondition !== "labels") {
           midwayText.textContent = "Du er halvvejs. I resten af forsøget får du vist en skala til hjælp i dine vurderinger.";
           midwayScale.src = scaleImagePath;
@@ -554,14 +554,13 @@
           midwayText.textContent = "Du er halvvejs. Fortsæt med dine vurderinger som før.";
           midwayScale.style.display = "none";
         }
+      } else {
+        console.log(trialDataLog);
+        sendToOSF();  // <- download triggered here
+        document.getElementById("debrief-screen").style.display = "block";
       }
-    } else {
-      console.log(trialDataLog);
-      sendToOSF();  // <- download triggered here
-      document.getElementById("debrief-screen").style.display = "block";
     }
-  }
-}
+
 
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
