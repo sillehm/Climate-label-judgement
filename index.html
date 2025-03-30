@@ -102,39 +102,48 @@
       background-color: #ccc;
     }
 
-    .likert-scale {
-      width: 100%;
-      position: relative;
-      margin: 80px 0;
-      height: 80px;
-    }
-
-    .likert-scale input[type=range] {
-      width: 100%;
-      appearance: none;
-      background: transparent;
-    }
-
-    .likert-scale input[type=range]::-webkit-slider-runnable-track {
-      height: 4px;
-      background: #888;
-    }
-
-    .likert-scale input[type=range]::-webkit-slider-thumb {
-      appearance: none;
-      height: 20px;
-      width: 20px;
-      background: #333;
-      border-radius: 50%;
-      margin-top: -8px;
-    }
-
-    .likert-labels {
+    .likert-options {
       display: flex;
       justify-content: space-between;
-      font-size: 14px;
-      margin-top: 8px;
+      position: relative;
+      margin: 60px 0 40px;
     }
+    
+    .likert-options label {
+      flex: 1;
+      text-align: center;
+      cursor: pointer;
+      position: relative;
+    }
+    
+    .likert-options input[type="radio"] {
+      display: none;
+    }
+    
+    .likert-options span {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+    
+    .likert-options label::before {
+      content: "";
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 14px;
+      height: 14px;
+      border: 2px solid #666;
+      border-radius: 50%;
+      background: white;
+      transition: background 0.2s;
+    }
+    
+    .likert-options input[type="radio"]:checked + span::before {
+      background: #333;
+    }
+
 
     #basket {
       background: white;
@@ -314,15 +323,18 @@
 
 <div id="certainty-screen" class="screen">
   <h2>Hvor sikker er du på dit svar?</h2>
-  <p>Angiv dit svar ved at trække på skalaen.</p>
+  <p>Angiv dit svar ved at klikke på skalaen.</p>
   <div class="likert-scale">
-    <input type="range" id="certainty-slider" min="1" max="7" step="1">
-    <div class="likert-labels">
-      <span>Usikker</span>
-      <span></span><span></span><span></span><span></span><span></span>
-      <span>Sikker</span>
-    </div>
+  <div class="likert-options">
+    <label><input type="radio" name="certainty" value="1"><span>Usikker</span></label>
+    <label><input type="radio" name="certainty" value="2"><span>2</span></label>
+    <label><input type="radio" name="certainty" value="3"><span>3</span></label>
+    <label><input type="radio" name="certainty" value="4"><span>4</span></label>
+    <label><input type="radio" name="certainty" value="5"><span>5</span></label>
+    <label><input type="radio" name="certainty" value="6"><span>6</span></label>
+    <label><input type="radio" name="certainty" value="7"><span>Sikker</span></label>
   </div>
+</div>
   <button onclick="submitCertainty()">Næste</button>
 </div>
 
@@ -475,7 +487,9 @@
   }
 
   function submitCertainty() {
-  const certainty = parseInt(document.getElementById("certainty-slider").value);
+  const certainty = parseInt(document.querySelector('input[name="certainty"]:checked')?.value);
+  if (!certainty) return alert("Vælg venligst en vurdering før du går videre.");
+
   const rt = Date.now() - trialStartTime;
 
   const totalWeight = currentTrialItems.reduce((sum, i) => sum + i.weight, 0);
