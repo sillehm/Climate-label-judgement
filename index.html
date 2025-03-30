@@ -501,7 +501,7 @@
   function endTrial() {
     if (!selectedAnswer) return;
     document.getElementById("experiment-area").style.display = "none";
-    document.getElementById("certainty-screen").style.display = "flex";
+    document.getElementById("certainty-screen").style.display = "block";
     const scaleImg = document.getElementById("scale-image");
     if (scaleImg) scaleImg.style.display = 'none';
     document.querySelectorAll('input[name="certainty"]').forEach(r => r.checked = false);
