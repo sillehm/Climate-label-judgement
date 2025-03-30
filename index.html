@@ -378,8 +378,9 @@
 
   form.onsubmit = function(event) {
     event.preventDefault();
-    document.getElementById("gui-screen").style.display = "none";
-    document.getElementById("consent-screen").style.display = "block";
+    document.getElementById(screens[currentScreen]).style.display = "none"; // hide gui
+    currentScreen++;
+    document.getElementById(screens[currentScreen]).style.display = "block"; // show background
   };
 
   const screens = [
