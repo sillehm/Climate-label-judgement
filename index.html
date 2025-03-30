@@ -491,7 +491,7 @@
     document.getElementById("certainty-screen").style.display = "block";
     const scaleImg = document.getElementById("scale-image");
     if (scaleImg) scaleImg.style.display = 'none';
-    document.getElementById("certainty-slider").value = 4;
+    document.querySelectorAll('input[name="certainty"]').forEach(r => r.checked = false);
   }
 
   function submitCertainty() {
@@ -627,6 +627,7 @@ async function sendToOSF() {
 
   function startNextBlock() {
     document.getElementById("get-ready-screen").style.display = "none";
+    document.getElementById("midway-screen").style.display = "none";
     runTrial();
   }
 
