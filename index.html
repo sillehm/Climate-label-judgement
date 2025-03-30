@@ -219,8 +219,27 @@
 </head>
 <body>
 
+
+<div id="consent-screen" class="screen" style="display:block">
+  <h2>Samtykkeerklæring</h2>
+  <p>Du skal til at deltage i et online studie, som er udarbejdet af Sille Hasselbalch Markussen i forbindelse med sit speciale i Cognitive Science. 
+    <br>
+    Studiet varer ca. 15 minutter, og dine svar behandles anonymt og fortroligt i overensstemmelse med databeskyttelsesforordningen.
+    <br>
+    <br> 
+      Hvis du på noget tidspunkt lukker denne fane, forlader du eksperimentet, og dine data vil ikke blive gemt. 
+      <br><br>
+    Har du spørgsmål om studiet eller behandlingen af dine data, skal du være velkommen til at kontakte Sille Hasselbalch Markussen, 202006969@post.au.dk.
+    <br><br>
+    Din deltagelse er helt frivillig, og du kan til enhver tid trække dit samtykke tilbage uden konsekvenser.
+    <br><br>
+  Klik på "Næste" for at afgive dit samtykke. Hvis ikke du ønsker at samtykke, kan du lukke fanen. </p>
+  <button class="next-btn" onclick="nextStep()">Næste</button>
+</div>
+
+  
 <!-- Demographics form -->
-<div id="gui-screen" class="screen" style="display:block">
+<div id="gui-screen" class="screen">
   <form id="demographics-form">
     <h3>Deltagerinformation</h3>
     <label for="participant-id">Deltager ID</label>
@@ -265,24 +284,6 @@
 
     <button id="start-button" type="submit">Start Eksperiment</button>
   </form>
-</div>
-
-
-<div id="consent-screen" class="screen">
-  <h2>Samtykkeerklæring</h2>
-  <p>Du skal til at deltage i et online studie, som er udarbejdet af Sille Hasselbalch Markussen i forbindelse med sit speciale i Cognitive Science. 
-    <br>
-    Studiet varer ca. 15 minutter, og dine svar behandles anonymt og fortroligt i overensstemmelse med databeskyttelsesforordningen.
-    <br>
-    <br> 
-      Hvis du på noget tidspunkt lukker denne fane, forlader du eksperimentet, og dine data vil ikke blive gemt. 
-      <br><br>
-    Har du spørgsmål om studiet eller behandlingen af dine data, skal du være velkommen til at kontakte Sille Hasselbalch Markussen, 202006969@post.au.dk.
-    <br><br>
-    Din deltagelse er helt frivillig, og du kan til enhver tid trække dit samtykke tilbage uden konsekvenser.
-    <br><br>
-  Klik på "Næste" for at afgive dit samtykke. Hvis ikke du ønsker at samtykke, kan du lukke fanen. </p>
-  <button class="next-btn" onclick="nextStep()">Næste</button>
 </div>
 
 <div id="background-screen" class="screen">
@@ -382,8 +383,8 @@
   };
 
   const screens = [
-    "demographics-form",
     "consent-screen",
+    "demographics-form",
     "background-screen",
     "instructions-screen"
   ];
