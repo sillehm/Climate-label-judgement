@@ -438,21 +438,24 @@
       console.warn("Server wake-up failed:", err);
     });
 
-  
   function loadScaleCondition() {
-    fetch('scaleCondition.csv')
-      .then(response => response.text())
+    fetch("https://osf-uploader.onrender.com/assign-condition")
+      .then(response => response.json())
       .then(data => {
-        const lines = data.trim().split('\n').slice(1);
-        const random = lines[Math.floor(Math.random() * lines.length)].split(',');
-        scaleCondition = random[0];
-        scaleImagePath = random[1];
-
-        const img = new Image();
-        img.src = scaleImagePath;
-        preloadedImages.push(img);
-    });
+        scaleCondition = data.condition;
+        scaleImagePath = data.image;
+  
+        if (scaleImagePath) {
+          const img = new Image();
+          img.src = scaleImagePath;
+          preloadedImages.push(img);
+        }
+      })
+      .catch(err => {
+        console.error("Failed to assign condition:", err);
+      });
   }
+
 
   function runTrial() {
     selectedAnswer = null;
