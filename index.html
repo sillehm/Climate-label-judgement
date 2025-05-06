@@ -439,23 +439,25 @@
     });
 
   function loadScaleCondition() {
-    fetch("https://osf-uploader.onrender.com/assign-condition")
-      .then(response => response.json())
-      .then(data => {
-        scaleCondition = data.condition;
-        scaleImagePath = data.image;
-  
-        if (scaleImagePath) {
-          const img = new Image();
-          img.src = scaleImagePath;
-          preloadedImages.push(img);
-        }
-      })
-      .catch(err => {
-        console.error("Failed to assign condition:", err);
-      });
-  }
+    const CONDITIONS = ["original", "labels", "linear"];
+    const CONDITION_IMAGES = {
+        original: "https://raw.githubusercontent.com/sillehm/Climate-label-judgement/main/scales/scale_original.png",
+        labels: null,
+        linear: "https://raw.githubusercontent.com/sillehm/Climate-label-judgement/main/scales/scale_linear.png"
+    };
 
+    // Pick random condition
+    scaleCondition = CONDITIONS[Math.floor(Math.random() * CONDITIONS.length)];
+    scaleImagePath = CONDITION_IMAGES[scaleCondition];
+
+    console.log("Assigned condition:", scaleCondition);
+
+    if (scaleImagePath) {
+        const img = new Image();
+        img.src = scaleImagePath;
+        preloadedImages.push(img);
+    }
+}
 
   function runTrial() {
     selectedAnswer = null;
