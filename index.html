@@ -439,25 +439,34 @@
     });
 
   function loadScaleCondition() {
-    const CONDITIONS = ["original", "labels", "linear"];
-    const CONDITION_IMAGES = {
-        original: "https://raw.githubusercontent.com/sillehm/Climate-label-judgement/main/scales/scale_original.png",
-        labels: null,
-        linear: "https://raw.githubusercontent.com/sillehm/Climate-label-judgement/main/scales/scale_linear.png"
-    };
+  fetch("scaleCondition.csv")
+    .then(response => response.text())
+    .then(data => {
+      const lines = data.trim().split("\n").slice(1); // skip header
 
-    // Pick random condition
-    scaleCondition = CONDITIONS[Math.floor(Math.random() * CONDITIONS.length)];
-    scaleImagePath = CONDITION_IMAGES[scaleCondition];
+      const conditions = lines.map(line => {
+        const [condition, imagePath] = line.split(",");
+        return { condition: condition.trim(), image: imagePath.trim() };
+      });
 
-    console.log("Assigned condition:", scaleCondition);
+      // Pick random condition
+      const chosen = conditions[Math.floor(Math.random() * conditions.length)];
+      scaleCondition = chosen.condition;
+      scaleImagePath = chosen.image;
 
-    if (scaleImagePath) {
+      console.log("Assigned condition:", scaleCondition);
+
+      if (scaleImagePath) {
         const img = new Image();
         img.src = scaleImagePath;
         preloadedImages.push(img);
-    }
+      }
+    })
+    .catch(err => {
+      console.error("Failed to load scale conditions:", err);
+    });
 }
+
 
   function runTrial() {
     selectedAnswer = null;
